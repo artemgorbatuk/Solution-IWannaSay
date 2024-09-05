@@ -1,0 +1,21 @@
+﻿.app-room {
+    display: flex;
+    height: 78vh;
+    width: 100%;
+}
+
+.app-panel {
+    flex-basis: 20vw; /* ширина блока : 20% от контейнера на layout page */
+    margin: 1px;
+}
+
+.app-chat {
+    flex-grow: 1; /* ширина блока : оставшееся пространство контейнера на layout page */
+    margin: 1px;
+}
+
+.app-border {
+    border: solid;
+    border-color: gray;
+    border-radius: 3px;
+}
