@@ -1,8 +1,13 @@
+using Services.Api;
+using Services.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 #region Add services to the container
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IServiceRoom, ServiceRoom>();
 
 var app = builder.Build();
 

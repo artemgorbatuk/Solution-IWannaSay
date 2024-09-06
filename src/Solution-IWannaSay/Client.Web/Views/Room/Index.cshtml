@@ -1,8 +1,30 @@
+﻿@model RoomIndexPage;
+
 ﻿<div class="app-room">
+
     <div class="app-panel app-border">
 
+        <div class="app-search">
+
     </div>
+
+        <div class="app-group">
+
+            @foreach (var group in Model.Groups) {
+                @group.Name <br>
+            }
+
+        </div>
+
+    </div>
+
     <div class="app-chat app-border">
+
+        <div class="app-messages">
+
+            @foreach (var message in Model.Messages) {
+                @message.Text <br>
+            }
 
     </div>
 </div>
