@@ -19,4 +19,5 @@ public class RoomIndexGroupModel {
 public class RoomIndexMessageModel {
     public Guid Id { get; set; }
     public string Text { get; set; } = default!;
+    public RoomIndexUserModel User { get; set; } = default!;
 }

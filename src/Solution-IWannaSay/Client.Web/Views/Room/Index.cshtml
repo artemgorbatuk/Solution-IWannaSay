@@ -23,13 +23,26 @@
         <div class="app-messages">
 
             @foreach (var message in Model.Messages) {
-                @message.Text <br>
+                @if(Model.User.Id == message.User.Id) {
+                    <div class="app-message-yours">
+                        <div class="app-message-username"> Вы: @message.User.Name</div>
+                        <div class="app-message-text">@message.Text</div>
+                    </div>
+                }
+                else {
+                    <div class="app-message">
+                        <div class="app-message-username">@message.User.Name</div>
+                        <div class="app-message-text">@message.Text</div>
+                    </div>
+                }
             }
 
         </div>
 
+        <hr class="app-break-line" />
+
         <div class="app-input-line">
-            <input type="text" name="input-line" value="" />
+            <textarea class="" rows="3" autofocus spellcheck="true" placeholder="Введите сообщение"></textarea>
         </div>
 
     </div>
