@@ -33,6 +33,18 @@
     padding: 5px;
     overflow-y: auto;
 }
+    .app-messages::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .app-messages::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.075);
+    }
+
+    .app-messages::-webkit-scrollbar-thumb {
+        background: gray;
+        border-radius: 20px;
+    }
 
 .app-message {
     border-style: solid;
