@@ -1,8 +1,29 @@
-﻿using Services.Interfaces;
+﻿using Repositories.SignalR.Interfaces;
+using Services.Interfaces;
 using Services.Models;
 
 namespace Services.Api;
+
+/// <summary>
+/// Комната состоит из групп (CRUD)
+/// </summary>
 public class ServiceRoom : IServiceRoom {
+
+    private readonly IConnectorRoom connectorRoom;
+
+    public ServiceRoom(IConnectorRoom connectorRoom)
+    {
+        this.connectorRoom = connectorRoom;
+    }
+
+    public async Task ConnectAsync() {
+        await connectorRoom.ConnectAsync();
+    }
+
+    public async Task DisconnectAsync() {
+        await connectorRoom.DisconnectAsync();
+    }
+
     public RoomIndexPage GetRoomIndexPage() {
 
         var user1 = new RoomIndexUserModel() {
