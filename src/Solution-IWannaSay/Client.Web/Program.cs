@@ -1,5 +1,4 @@
-using Services.Api;
-using Services.Interfaces;
+using Client.Web.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<IServiceRoom, ServiceRoom>();
+builder.Services.AddDependencyInjection();
+
+builder.Services.AddHubConnection();
 
 var app = builder.Build();
 
@@ -18,6 +19,7 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment()) {
     app.UseExceptionHandler("/Home/Error");
 }
+
 app.UseStaticFiles();
 
 app.UseRouting();
