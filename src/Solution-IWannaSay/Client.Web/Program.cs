@@ -14,7 +14,7 @@ builder.Services.AddDependencyInjectionExt();
 
 builder.Services.AddAuthenticationExt();
 
-builder.Services.AddAuthorizationExt();
+//builder.Services.AddAuthorizationExt();
 
 //builder.Services.AddCorsExt();
 
