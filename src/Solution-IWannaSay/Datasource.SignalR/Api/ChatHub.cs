@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-namespace Server.SignalR.Api;
+namespace Datasource.SignalR.Api;
 
 public class ChatHub : Hub {
 

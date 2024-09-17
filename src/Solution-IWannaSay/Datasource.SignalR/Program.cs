@@ -1,4 +1,4 @@
-using Server.SignalR.Api;
+using Datasource.SignalR.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 
