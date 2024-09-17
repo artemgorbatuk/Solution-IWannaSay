@@ -1,0 +1,15 @@
+﻿@model RoomIndexPage;
+
+@foreach (var message in Model.Messages) {
+    @if (Model.User.Id == message.User.Id) {
+        <div class="app-message-yours">
+            <div class="app-message-username"> Вы: @message.User.Name</div>
+            <div class="app-message-text">@message.Text</div>
+        </div>
+    } else {
+        <div class="app-message">
+            <div class="app-message-username">@message.User.Name</div>
+            <div class="app-message-text">@message.Text</div>
+        </div>
+    }
+}
