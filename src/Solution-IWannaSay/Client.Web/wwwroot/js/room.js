@@ -19,5 +19,6 @@ $(document).ready(function () {
                 $('.app-messages').html(data); //replaceWith
                 ScrollBottom();
             });
+        $('#message').val(null);
     });
 });
