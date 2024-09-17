@@ -16,7 +16,6 @@ public class RoomController : Controller {
     }
 
     public IActionResult Index() {
-        serviceRoom.ConnectAsync();
         var result = serviceRoom.GetRoomIndexPage();
         return View(result);
     }

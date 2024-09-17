@@ -12,11 +12,13 @@ namespace Client.Web.Controllers;
 public class AccountController : Controller {
 
     private readonly IServiceAuthentification serviceAuthentification;
+    private readonly IServiceRoom serviceRoom;
     private readonly ILogger<AccountController> logger;
 
-    public AccountController(IServiceAuthentification serviceAuthentification, ILogger<AccountController> logger) {
+    public AccountController(IServiceAuthentification serviceAuthentification, ILogger<AccountController> logger, IServiceRoom serviceRoom) {
         this.serviceAuthentification = serviceAuthentification;
         this.logger = logger;
+        this.serviceRoom = serviceRoom;
     }
 
     [HttpGet]
@@ -49,11 +51,16 @@ public class AccountController : Controller {
 
         await HttpContext.SignInAsync("Cookies", principal, properties);
 
+        await serviceRoom.ConnectAsync();
+
         return RedirectToAction("Index", "Home");
     }
 
     public async Task<IActionResult> Logout() {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+        await serviceRoom.DisconnectAsync();
+
         return RedirectToAction("Login", "Account");
     }
 }
