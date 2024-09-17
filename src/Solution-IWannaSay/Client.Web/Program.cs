@@ -16,7 +16,7 @@ builder.Services.AddAuthenticationExt();
 
 //builder.Services.AddAuthorizationExt();
 
-//builder.Services.AddCorsExt();
+builder.Services.AddCorsExt();
 
 builder.Services.AddHubConnectionExt();
 
@@ -34,7 +34,7 @@ app.UseStaticFilesExt(app.Environment.IsDevelopment(), builder.Environment.Conte
 
 app.UseRouting();
 
-//app.UseCors("CorsPolicy");
+app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 

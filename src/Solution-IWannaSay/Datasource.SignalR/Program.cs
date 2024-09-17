@@ -11,7 +11,19 @@ builder.Services.AddLogging(logging => {
     logging.AddDebug();
 });
 
+builder.Services.AddCors(options => {
+    options.AddPolicy("CorsPolicy", builder => {
+        builder.WithOrigins("http://localhost:5000")
+        .AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .SetIsOriginAllowedToAllowWildcardSubdomains();
+    });
+});
+
 var app = builder.Build();
+
+app.UseCors("CorsPolicy");
 
 app.UseRouting();
 

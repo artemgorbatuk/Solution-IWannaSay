@@ -100,18 +100,13 @@ public static class ServiceRegistration {
 
         services.AddCors(options =>
         {
-            options.AddPolicy("CorsPolicy",
-                builder => builder
+            options.AddPolicy("CorsPolicy", builder => {
+                builder.WithOrigins("http://localhost:6000")
                 .AllowAnyOrigin()
-                //.SetIsOriginAllowed(_ => true)
-                .AllowAnyMethod()
                 .AllowAnyHeader()
-                //.AllowCredentials()
-                //The CORS protocol does not allow 
-                // specifying a wildcard (any) origin and credentials at the same time.
-                // Configure the CORS policy by listing individual origins
-                // if credentials needs to be supported.
-                .SetIsOriginAllowedToAllowWildcardSubdomains());
+                .AllowAnyMethod()
+                .SetIsOriginAllowedToAllowWildcardSubdomains();
+            });
         });
 
         return services;
