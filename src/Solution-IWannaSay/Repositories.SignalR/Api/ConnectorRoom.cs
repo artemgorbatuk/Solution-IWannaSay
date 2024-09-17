@@ -20,6 +20,7 @@ public class ConnectorRoom : IConnectorRoom {
 
         _connection.Reconnected += async (connectionId) => {
             logger.LogInformation($"Connection reconnected: {connectionId}");
+            await Task.CompletedTask;
         };
     }
 
