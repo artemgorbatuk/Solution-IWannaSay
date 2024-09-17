@@ -35,8 +35,8 @@ public static class ServiceRegistration {
     public static IServiceCollection AddHubConnectionExt(this IServiceCollection services) {
         return services.AddSingleton(_ =>
             new HubConnectionBuilder()
-                .WithUrl("http://localhost:5154/notification")
-                //.WithUrl("http://localhost:5154/notification", HttpTransportType.WebSockets | HttpTransportType.LongPolling)
+                .WithUrl("http://localhost:6000/notification")
+                //.WithUrl("http://localhost:6000/notification", HttpTransportType.WebSockets | HttpTransportType.LongPolling)
                 //.WithStatefulReconnect()
                 //.WithAutomaticReconnect()
                 //.AddMessagePackProtocol()
