@@ -8,6 +8,7 @@ public class DbContextIWannaSay : DbContext {
     public DbContextIWannaSay(DbContextOptions<DbContextIWannaSay> options) : base(options) { }
 
     public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<Message> Messages { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options) {
         options.EnableSensitiveDataLogging(false);

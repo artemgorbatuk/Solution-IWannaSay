@@ -6,7 +6,7 @@ namespace Datasource.Ef.Configurations;
 public class ConfigurationUser : IEntityTypeConfiguration<User> {
     public void Configure(EntityTypeBuilder<User> builder) {
 
-        //builder.ToTable("Users", "dbo");
+        builder.ToTable("Users", "dbo");
 
         builder.HasKey(p => p.Id);
 
