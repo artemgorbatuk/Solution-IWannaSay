@@ -2,6 +2,10 @@ using Client.Web.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var uri = builder.Environment.IsDevelopment()
+    ? new Uri("http://localhost:6000/")
+    : new Uri("http://signalr:6000/");
+
 #region Add services to the container
 
 builder.Configuration.AddJsonFileExt(builder.Environment);
@@ -16,9 +20,9 @@ builder.Services.AddAuthenticationExt();
 
 //builder.Services.AddAuthorizationExt();
 
-builder.Services.AddCorsExt();
+builder.Services.AddCorsExt(uri);
 
-builder.Services.AddHubConnectionExt();
+builder.Services.AddHubConnectionExt(uri);
 
 builder.Services.AddControllersWithViews();
 

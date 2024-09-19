@@ -2,9 +2,12 @@ using Datasource.SignalR.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSignalR();
+var uri = builder.Environment.IsDevelopment()
+    ? new Uri("http://localhost:5000/")
+    : new Uri("http://client:5000/");
 
 //builder.Services.AddSignalRCore();
+builder.Services.AddSignalR();
 
 builder.Services.AddLogging(logging => {
     logging.AddConsole();
@@ -13,7 +16,7 @@ builder.Services.AddLogging(logging => {
 
 builder.Services.AddCors(options => {
     options.AddPolicy("CorsPolicy", builder => {
-        builder.WithOrigins("http://localhost:5000")
+        builder.WithOrigins(uri.AbsoluteUri)
         .AllowAnyOrigin()
         .AllowAnyHeader()
         .AllowAnyMethod()
@@ -22,6 +25,8 @@ builder.Services.AddCors(options => {
 });
 
 var app = builder.Build();
+
+app.UseRouting();
 
 app.UseCors("CorsPolicy");
 

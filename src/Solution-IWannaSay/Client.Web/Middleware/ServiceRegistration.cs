@@ -15,6 +15,7 @@ using Services.Interfaces;
 namespace Client.Web.Middleware;
 
 public static class ServiceRegistration {
+
     public static IServiceCollection AddDependencyInjectionExt(this IServiceCollection services) {
 
         services.AddScoped<IServiceAuthentification, ServiceAuthentification>();
@@ -32,15 +33,19 @@ public static class ServiceRegistration {
         return services;
     }
 
-    public static IServiceCollection AddHubConnectionExt(this IServiceCollection services) {
-        return services.AddSingleton(_ =>
-            new HubConnectionBuilder()
-                .WithUrl("http://localhost:6000/notification")
-                //.WithUrl("http://localhost:6000/notification", HttpTransportType.WebSockets | HttpTransportType.LongPolling)
+    public static IServiceCollection AddHubConnectionExt(this IServiceCollection services, Uri uri) {
+        return services.AddSingleton(_ => {
+
+            var notificationUri = new Uri(uri, "/notification");
+
+            return new HubConnectionBuilder()
+                            .WithUrl(notificationUri)
+                            //.WithUrl(uri, HttpTransportType.WebSockets | HttpTransportType.LongPolling)
                 //.WithStatefulReconnect()
                 //.WithAutomaticReconnect()
                 //.AddMessagePackProtocol()
-                .Build());
+                            .Build();
+        });
     }
 
     public static IServiceCollection AddDbContextExt(this IServiceCollection services, ConfigurationManager configuration) {
@@ -96,12 +101,12 @@ public static class ServiceRegistration {
         return services;
     }
 
-    public static IServiceCollection AddCorsExt(this IServiceCollection services) {
+    public static IServiceCollection AddCorsExt(this IServiceCollection services, Uri uri) {
 
         services.AddCors(options =>
         {
             options.AddPolicy("CorsPolicy", builder => {
-                builder.WithOrigins("http://localhost:6000")
+                builder.WithOrigins(uri.AbsoluteUri)
                 .AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod()

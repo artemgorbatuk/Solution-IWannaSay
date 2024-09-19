@@ -1,0 +1,62 @@
+﻿name: i-wanna-say
+
+volumes:
+  volume-mssql:
+
+services:
+ mssql:
+    image: i-wanna-say-mssql
+    container_name: i-wanna-say-mssql
+    restart: always
+    volumes:
+      - volume-mssql:/mssql-data
+    build:
+      context: ..
+      dockerfile: Datasource.Ef/Dockerfile
+      no_cache: true
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: 'Passw0rd!1'
+    ports:
+      - "1433:1433"
+    expose:
+      - 1433
+
+ mssql-migration:
+    image: i-wanna-say-migration
+    container_name: migration
+    build:
+      context: ..
+      dockerfile: Datasource.Ef/Dockerfile.migration
+      no_cache: true
+    depends_on:
+      - mssql
+
+ signalr:
+    image: i-wanna-say-signalr
+    container_name: i-wanna-say-signalr
+    restart: always
+    build:
+      context: ..
+      dockerfile: Datasource.SignalR/Dockerfile
+      no_cache: true
+    ports:
+      - "6080:6000"
+    expose:
+      - 6000
+
+ client:
+    image: i-wanna-say-client
+    container_name: i-wanna-say-client
+    restart: always
+    build:
+      context: ..
+      dockerfile: Client.Web/Dockerfile
+      no_cache: true
+    ports:
+      - "80:5000"
+    expose:
+      - 5000
+    depends_on:
+      - mssql
+      - signalr

@@ -1,0 +1,20 @@
+﻿# Установка sdk
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS sdk
+ARG BUILD_CONFIGURATION=Release
+
+# Установка wait-for-it
+RUN apt-get update && apt-get install -y wait-for-it
+
+# Установка entity framework
+RUN dotnet tool install --global dotnet-ef
+ENV PATH="${PATH}:/root/.dotnet/tools"
+
+# Копирование исходников проектов в папку src
+WORKDIR /src
+COPY ["Client.Web", "Client.Web/"]
+COPY ["Datasource.Ef", "Datasource.Ef/"]
+COPY ["Services", "Services/"]
+COPY ["Repositories.Ef", "Repositories.Ef/"]
+COPY ["Repositories.SignalR", "Repositories.SignalR/"]
+
+ENTRYPOINT wait-for-it mssql:1433 -- dotnet-ef database update --project "Datasource.Ef/Datasource.Ef.csproj" --startup-project "Client.Web/Client.Web.csproj"
