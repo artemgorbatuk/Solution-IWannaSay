@@ -51,7 +51,11 @@ public class AccountController : Controller {
 
         await HttpContext.SignInAsync("Cookies", principal, properties);
 
+        logger.LogInformation("Login to the app has been successful");
+
         await serviceRoom.ConnectAsync();
+
+        logger.LogInformation("Connect to the signalr service has been successful");
 
         return RedirectToAction("Index", "Home");
     }
