@@ -6,7 +6,8 @@ var uri = builder.Environment.IsDevelopment()
     ? new Uri("http://localhost:5000/")
     : new Uri("http://client:5000/");
 
-//builder.Services.AddSignalRCore();
+//builder.Configuration.AddJsonFileExt(builder.Environment);
+
 builder.Services.AddSignalR();
 
 builder.Services.AddLogging(logging => {
@@ -30,11 +31,6 @@ app.UseRouting();
 
 app.UseCors("CorsPolicy");
 
-app.UseRouting();
-
 app.MapHub<ChatHub>("/notification");
-
-//app.MapHub<ChatHub>("/notification", 
-//    options => { options.Transports = HttpTransportType.WebSockets | HttpTransportType.LongPolling; } );
 
 await app.RunAsync();

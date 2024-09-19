@@ -8,7 +8,7 @@ var uri = builder.Environment.IsDevelopment()
 
 #region Add services to the container
 
-builder.Configuration.AddJsonFileExt(builder.Environment);
+//builder.Configuration.AddJsonFileExt(builder.Environment);
 
 builder.Services.AddDbContextExt(builder.Configuration);
 
@@ -42,7 +42,9 @@ var app = builder.Build();
 
 app.UseExceptionHandler("/Home/Error");
 
-app.UseStaticFilesExt(app.Environment.IsDevelopment(), builder.Environment.ContentRootPath);
+app.UseStaticFiles();
+
+//app.UseStaticFilesExt(app.Environment.IsDevelopment(), builder.Environment.ContentRootPath);
 
 app.UseRouting();
 
