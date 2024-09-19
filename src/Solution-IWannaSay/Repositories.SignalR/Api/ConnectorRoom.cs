@@ -15,7 +15,7 @@ public class ConnectorRoom : IConnectorRoom {
 
         _connection.Closed += async (error) => {
             logger.LogInformation($"Connection closed: {error}");
-            await _connection.StartAsync();
+            await Task.CompletedTask;
         };
 
         _connection.Reconnected += async (connectionId) => {
@@ -30,8 +30,9 @@ public class ConnectorRoom : IConnectorRoom {
     }
 
     public async Task DisconnectAsync() {
+        var connectionId = _connection.ConnectionId;
         await _connection.StopAsync();
-        _logger.LogInformation($"Connection stopped: {_connection.ConnectionId}");
+        _logger.LogInformation($"Connection stopped: {connectionId}");
     }
 
     public bool IsConnected() {
